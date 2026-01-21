@@ -25,3 +25,6 @@ Route::prefix("admin")->group(function() {
         Route::post("/platforms",[PlatformController::class,"store"]);
     });
 });
+
+Route::get("/films",[FilmController::class,"index"]);
+Route::get("/films/{id}",[FilmController::class,"index"]);

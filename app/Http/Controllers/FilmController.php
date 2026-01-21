@@ -14,7 +14,7 @@ class FilmController extends Controller
     public function index()
     {
         $film = Film::all();
-        return view("filmList", ["films" => $film]);
+        return view("listFilm", ["films" => $film]);
     }
 
     /**
@@ -57,7 +57,7 @@ class FilmController extends Controller
     public function show(string $id)
     {
         $film = Film::find((int)$id);
-        return view("showFilm", ["film" => $film]);
+        return view("filmShow", ["film" => $film]);
     }
 
     /**

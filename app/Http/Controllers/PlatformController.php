@@ -43,9 +43,9 @@ class PlatformController extends Controller
         ]);
 
         $film = Platforme::create([
-            "title" => $request->input("name"),
-            "synopsis" => $request->input("url"),
-            "releaseYear" => $request->input("logo")
+            "name" => $request->input("name"),
+            "url" => $request->input("url"),
+            "logo" => $request->input("logo")
         ]);
 
         return redirect("/listPL");

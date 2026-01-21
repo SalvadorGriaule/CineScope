@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Platforme extends Model
 {
-    protected $fillable = ["names","url","logo"];
+    protected $fillable = ["name", "url", "logo"];
+
+    protected $table = 'platformes';
 
     public function films(): BelongsToMany
     {

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -50,7 +51,13 @@ class UserController extends Controller
 
         if (Auth::attempt($cred)) {
             $request->session()->regenerate();
-
+            $role = Auth::user()->roles;
+            if ($role == "ROLE_ADMIN") {
+                $request->session()->put('role', 'admin');
+            } else {
+                $request->session()->put('role', 'user');
+            }
+            Log::info($role);
             return redirect('/');
         }
 
