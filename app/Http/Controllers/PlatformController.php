@@ -38,8 +38,8 @@ class PlatformController extends Controller
         }
         $validated = $request->validate([
             "name" => "required|string",
-            "url" => "string",
-            "logo" => "string"
+            "url" => "string|nullable",
+            "logo" => "string|nullable"
         ]);
 
         $film = Platforme::create([
@@ -48,7 +48,7 @@ class PlatformController extends Controller
             "logo" => $request->input("logo")
         ]);
 
-        return redirect("/listPL");
+        return redirect("/films");
     }
 
     /**

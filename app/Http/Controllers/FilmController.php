@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Film;
+use App\Models\Film_platform;
+use App\Models\Platforme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 
 class FilmController extends Controller
 {
@@ -25,7 +28,8 @@ class FilmController extends Controller
         if (!Gate::allows('is_admin')) {
             abort(403);
         }
-        return view("createFilm");
+        $pl = Platforme::all();
+        return view("createFilm",["pl"=>$pl]);
     }
 
     /**
@@ -33,22 +37,32 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
+        
         if (!Gate::allows('is_admin')) {
             abort(403);
         }
+        $pl = Platforme::all();
         $validated = $request->validate([
             "title" => "required|string",
-            "synopsis" => "string",
-            "releaseYear" => "required|integer|min:1800"
+            "synopsis" => "string|nullable",
+            "releaseYear" => "required|integer|min:1800",
+            "platformes" => "integer"
         ]);
-
+        Log::info($request->all());
         $film = Film::create([
             "title" => $request->input("title"),
             "synopsis" => $request->input("synopsis"),
-            "releaseYear" => $request->input("releaseYear")
+            "releaseYear" => $request->input("releaseYear"),
+        ]);
+        $last = Film::latest()->first();
+        $rela = Film_platform::create([
+            "platforme_id" => $request->input("platformes"),
+            "film_id" => $last->id
         ]);
 
-        return redirect("/listFilm");
+        Log::info($film);
+        Log::info($rela);
+        return redirect("/films");
     }
 
     /**

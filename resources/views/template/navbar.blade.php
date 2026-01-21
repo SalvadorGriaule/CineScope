@@ -11,8 +11,8 @@
          @auth
              @session('role')
                  @if ($value == 'admin')
-                     <li class="list-none"><a href="/createTask">Ajouter un film</a></li>
-                     <li class="list-none"><a href="/listTask">'Ajouter une platforme</a></li>
+                     <li class="list-none"><a href="/admin/films">Ajouter un film</a></li>
+                     <li class="list-none"><a href="/admin/platforms">'Ajouter une platforme</a></li>
                  @endif
              @endsession
              <li class="list-none"><a href="/films">liste de film</a></li>

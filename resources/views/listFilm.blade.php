@@ -1,10 +1,12 @@
 @include('template.header', ['title' => 'insertion film'])
 <section>
-    @forelse ($films as $item)
-        <p>{{ $item["title"]}}</p>        
-    @empty
+    <div class="flex flex-col">
+        @forelse ($films as $item)
+        <a href="/films/{{ $item["id"] }}">{{ $item["title"]}}</a>        
+        @empty
         <p>pas de film</p>    
-    @endforelse 
+        @endforelse 
+    </div>
     
 </section>
 @include('template.footer')
