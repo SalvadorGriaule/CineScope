@@ -46,7 +46,7 @@ class FilmController extends Controller
             "title" => "required|string",
             "synopsis" => "string|nullable",
             "releaseYear" => "required|integer|min:1800",
-            "platformes" => "integer"
+            "platformes" => "integer|nullable"
         ]);
         Log::info($request->all());
         $film = Film::create([
@@ -55,13 +55,14 @@ class FilmController extends Controller
             "releaseYear" => $request->input("releaseYear"),
         ]);
         $last = Film::latest()->first();
-        $rela = Film_platform::create([
-            "platforme_id" => $request->input("platformes"),
-            "film_id" => $last->id
-        ]);
+        echo($request->input("platformes"));
+        if ($request->input("platformes") != null) {
+            $rela = Film_platform::create([
+                "platforme_id" => $request->input("platformes"),
+                "film_id" => $last->id
+            ]); # code...
+        }
 
-        Log::info($film);
-        Log::info($rela);
         return redirect("/films");
     }
 
@@ -70,7 +71,8 @@ class FilmController extends Controller
      */
     public function show(string $id)
     {
-        $film = Film::find((int)$id);
+        $film = Film::with("platforms")->find((int)$id);
+        Log::info($film);
         return view("filmShow", ["film" => $film]);
     }
 

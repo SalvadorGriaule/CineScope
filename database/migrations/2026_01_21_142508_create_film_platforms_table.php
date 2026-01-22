@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('film_platforms', function (Blueprint $table) {
+        Schema::create('film_platforme', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Film::class);
             $table->foreignIdFor(Platforme::class);

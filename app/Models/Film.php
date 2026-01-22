@@ -9,7 +9,7 @@ class Film extends Model
 {
     protected $fillable = ["title","synopsis","releaseYear"];
 
-    public function films(): BelongsToMany
+    public function platforms(): BelongsToMany
     {
         return $this->belongsToMany(Platforme::class);
     }
